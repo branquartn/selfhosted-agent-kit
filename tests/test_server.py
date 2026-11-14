@@ -138,6 +138,27 @@ def test_session_lifecycle(server):
     assert status == 404
 
 
+def test_memory_api(server):
+    base, _ = server
+    status, body = request(
+        base,
+        "/api/memory",
+        "POST",
+        {"name": "api-memory", "content": "stored through HTTP", "type": "project", "description": "test"},
+        AUTH,
+    )
+    assert status == 201
+    assert json.loads(body)["name"] == "api-memory"
+
+    status, body = request(base, "/api/memory", headers=AUTH)
+    assert status == 200
+    names = [item["name"] for item in json.loads(body)["memories"]]
+    assert "api-memory" in names
+
+    status, _ = request(base, "/api/memory/api-memory", "DELETE", headers=AUTH)
+    assert status == 200
+    status, _ = request(base, "/api/memory/api-memory", "DELETE", headers=AUTH)
+    assert status == 404
 
 
 def test_invalid_json_body(server):

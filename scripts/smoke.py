@@ -69,8 +69,8 @@ class FakeProvider(BaseHTTPRequestHandler):
                                         "index": 0,
                                         "id": "call_smoke",
                                         "function": {
-                                            "name": "read_file",
-                                            "arguments": '{"path": ',
+                                            "name": "write_file",
+                                            "arguments": '{"path": "smoke.txt", "content": ',
                                         },
                                     }
                                 ]
@@ -85,7 +85,7 @@ class FakeProvider(BaseHTTPRequestHandler):
                         {
                             "delta": {
                                 "tool_calls": [
-                                    {"index": 0, "function": {"arguments": '"smoke.txt"}'}}
+                                    {"index": 0, "function": {"arguments": '"hello from smoke"}'}}
                                 ]
                             }
                         }
@@ -116,7 +116,6 @@ def main() -> int:
     workdir = ROOT / ".smoke"
     shutil.rmtree(workdir, ignore_errors=True)
     (workdir / "workspace").mkdir(parents=True)
-    (workdir / "workspace" / "smoke.txt").write_text("hello from smoke", encoding="utf-8")
 
     provider_port = free_port()
     provider = ThreadingHTTPServer(("127.0.0.1", provider_port), FakeProvider)
@@ -191,10 +190,10 @@ def main() -> int:
         if "smoke.txt" not in (final.get("text") or ""):
             failures.append(f"unexpected final text: {final.get('text')!r}")
 
-        # 3. the tool really read the file from the workspace
-        results = [e for e in events if e["type"] == "tool_result"]
-        if not results or "hello from smoke" not in results[0].get("output", ""):
-            failures.append("read_file tool did not return workspace/smoke.txt")
+        # 3. the tool actually wrote the file inside the workspace
+        created = workdir / "workspace" / "smoke.txt"
+        if not created.is_file() or "hello from smoke" not in created.read_text():
+            failures.append("write_file tool did not create workspace/smoke.txt")
 
         # 4. the session was persisted and is listed
         request = urllib.request.Request(

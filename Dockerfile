@@ -19,7 +19,7 @@ RUN apt-get update \
 WORKDIR /app
 COPY src/ /app/src/
 COPY web/ /app/web/
-COPY pyproject.toml README.md LICENSE /app/
+COPY pyproject.toml README.md LICENSE LICENSE-COMMERCIAL.md /app/
 
 RUN useradd --system --create-home --uid 10001 agent \
  && mkdir -p /data /workspace \

@@ -42,14 +42,13 @@ def test_session_store_rejects_bad_id(cfg):
 
 
 def test_engine_runs_tool_then_answers(cfg, fake_llm):
-    (cfg.workspace / "out.txt").write_text("written by the agent", encoding="utf-8")
     llm = fake_llm(
         [
             StreamResult(
                 tool_calls=[
                     tool_call(
-                        "read_file",
-                        json.dumps({"path": "out.txt"}),
+                        "write_file",
+                        json.dumps({"path": "out.txt", "content": "written by the agent"}),
                     )
                 ]
             ),
@@ -60,11 +59,12 @@ def test_engine_runs_tool_then_answers(cfg, fake_llm):
     events: list[dict] = []
     result = engine.run("sess1", "create out.txt", on_event=events.append)
 
+    assert (cfg.workspace / "out.txt").read_text(encoding="utf-8") == "written by the agent"
     assert "All done" in result["text"]
     assert result["error"] is None
     assert result["steps"] == 2
     assert result["session_id"] == "sess1"
-    assert result["tools"][0]["name"] == "read_file"
+    assert result["tools"][0]["name"] == "write_file"
 
     types = [event["type"] for event in events]
     assert "step" in types
@@ -143,6 +143,15 @@ def test_engine_stops_at_step_budget(cfg, fake_llm):
     assert any(event["type"] == "warning" for event in events)
 
 
+def test_system_prompt_includes_memory_index(cfg):
+    from agent.memory import MemoryStore
+
+    MemoryStore(cfg.memory_dir).save(
+        "user-lang", "Speaks French", mem_type="user", description="Preferred language"
+    )
+    prompt = Engine(cfg).system_prompt()
+    assert "user-lang" in prompt
+    assert str(cfg.workspace) in prompt
 
 
 def test_custom_system_prompt_wins(cfg):

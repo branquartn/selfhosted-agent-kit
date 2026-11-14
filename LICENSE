@@ -1,11 +1,16 @@
-SelfHosted Agent Kit — DEMO edition: evaluation licence
+SelfHosted Agent Kit — source-available licence
 
-Copyright (c) 2026 the SelfHosted Agent Kit author
+Copyright (c) 2026 the SelfHosted Agent Kit author. All rights reserved.
 
-You may download, run, read and modify this demo for evaluation and for
-personal, non-commercial use. You may not redistribute it, sell it, or use it
-in a commercial product or service. The full version (all tools, long-term
-memory, action approval, documentation, updates, support) is licensed
-separately.
+1. FREE USES. You may read, run and modify this software for evaluation and for
+   personal, non-commercial use (hobby projects, learning, research).
+2. COMMERCIAL USE REQUIRES A PAID LICENCE. Any use inside a business, for a
+   client, in a product or service, or to generate revenue requires the
+   commercial licence in LICENSE-COMMERCIAL.md, obtained by purchase.
+3. NO REDISTRIBUTION. You may not redistribute, resell, sublicense or publish
+   this software or derivative works (other than a personal fork on GitHub used
+   solely to propose changes back), nor bundle it into templates, courses or
+   "agent packs".
+4. Keep all copyright notices.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
