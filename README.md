@@ -22,7 +22,7 @@ OpenRouter, vLLM, LM Studio, Ollama.
 | Node backend needed | **no** | often yes |
 | Provider lock-in | none | SDK-specific |
 | Tests | 91 passing, no network needed | rarely |
-| Licence | source-available: free to read and evaluate, paid for commercial use | MIT (no support) |
+| Licence | **MIT** | MIT |
 
 ## Features
 
@@ -200,15 +200,11 @@ python3 scripts/smoke.py     # end-to-end: fake provider + real server + SSE cha
 └── tests/                # pytest suite
 ```
 
-## Licence & support
+## Licence
 
-**Source-available, not open source.** You can read, run and modify the code for
-evaluation and personal, non-commercial use (see [`LICENSE`](LICENSE)). Using it in a
-business, client project or product requires the paid commercial licence —
-[`LICENSE-COMMERCIAL.md`](LICENSE-COMMERCIAL.md). One licence covers one organisation;
-reselling the code or publishing it as your own template is not permitted.
-Support and updates: 12 months from purchase.
+MIT — see [`LICENSE`](LICENSE). Free for personal and commercial use. Issues and pull
+requests are welcome; there is no paid support.
 
 ---
 
-*Version 1.1.0 — see [CHANGELOG.md](CHANGELOG.md).*
+*Version 1.1.1 — see [CHANGELOG.md](CHANGELOG.md).*

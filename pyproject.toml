@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "selfhosted-agent-kit"
-version = "1.1.0"
+version = "1.1.1"
 description = "Self-hosted AI agent with tool use, streaming web UI and long-term memory. Zero dependencies."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Source-available (see LICENSE and LICENSE-COMMERCIAL.md)" }
+license = { text = "MIT" }
 dependencies = []
 
 [project.scripts]

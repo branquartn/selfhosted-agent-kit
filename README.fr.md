@@ -51,7 +51,5 @@ utilisateur UNIX non privilégié, idéalement dans un conteneur, sans accès à
 
 ## Licence
 
-Code visible, **pas open source** : lecture, essai et usage personnel non commercial libres
-(voir `LICENSE`). Tout usage professionnel ou client demande la licence commerciale
-(`LICENSE-COMMERCIAL.md`), une organisation / un produit.
-Support et mises à jour : 12 mois.
+MIT — voir `LICENSE`. Usage personnel et commercial libre. Issues et pull requests
+bienvenues ; pas de support payant.

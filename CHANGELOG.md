@@ -3,6 +3,11 @@
 All notable changes to SelfHosted Agent Kit are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), SemVer.
 
+## [1.1.1] — 2026-11-14
+
+### Changed
+- Licence: now plain **MIT** (was a commercial licence). No paid edition, no paid support.
+
 ## [1.1.0] — 2026-11-14
 
 ### Added
