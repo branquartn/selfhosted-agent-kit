@@ -1,0 +1,9 @@
+# SelfHosted Agent Kit — no third-party dependencies.
+#
+# The agent speaks the OpenAI chat-completions protocol over HTTPS using only
+# the Python standard library (urllib), so this file is intentionally empty.
+#
+# Optional extras:
+#   pytest    → run the test suite
+#   gunicorn  → not used; the bundled ThreadingHTTPServer is enough for
+#               single-user deployments. Put nginx/Caddy in front for TLS.

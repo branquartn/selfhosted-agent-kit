@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SelfHosted Agent</title>
+<link rel="stylesheet" href="/chat.css">
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div id="auth" class="auth">
+  <form class="auth-card" id="auth-form" autocomplete="off">
+    <img src="/logo.svg" alt="" class="auth-logo">
+    <h1>SelfHosted Agent</h1>
+    <p class="muted">Paste the API token from your <code>.env</code> file (<code>AGENT_TOKEN</code>).</p>
+    <input id="token-input" type="password" placeholder="AGENT_TOKEN" required>
+    <button type="submit">Connect</button>
+    <p id="auth-error" class="error" hidden></p>
+  </form>
+</div>
+
+<div id="app" class="app" hidden>
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <img src="/logo.svg" alt="" class="logo">
+      <span class="brand">Agent</span>
+      <button id="disconnect" class="ghost" title="Forget token">&#9099;</button>
+    </div>
+    <button id="new-chat" class="primary">+ New conversation</button>
+    <nav id="sessions" class="sessions" aria-label="Conversations"></nav>
+    <div class="sidebar-foot">
+      <button id="open-memory" class="ghost">Memory</button>
+      <button id="toggle-config" class="ghost">Config</button>
+    </div>
+    <p id="model-badge" class="model-badge"></p>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h2 id="chat-title">New conversation</h2>
+      <span id="step-badge" class="badge" hidden></span>
+    </header>
+    <div id="messages" class="messages"></div>
+    <form id="composer" class="composer">
+      <textarea id="input" placeholder="Ask anything — Enter to send, Shift+Enter for a newline" rows="1"></textarea>
+      <button id="send" type="submit" class="primary">Send</button>
+      <button id="stop" type="button" class="ghost" hidden>Stop</button>
+    </form>
+    <p class="hint muted">The agent reads and writes files inside its workspace. Review what it does.</p>
+  </main>
+</div>
+
+<dialog id="memory-dialog" class="dialog">
+  <form method="dialog" class="dialog-body">
+    <h3>Long-term memory</h3>
+    <ul id="memory-list" class="memory-list"></ul>
+  </form>
+</dialog>
+
+<dialog id="config-dialog" class="dialog">
+  <form method="dialog" class="dialog-body">
+    <h3>Runtime configuration</h3>
+    <pre id="config-json" class="config-json"></pre>
+  </form>
+</dialog>
+
+<script src="/chat.js"></script>
+</body>
+</html>

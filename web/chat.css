@@ -1,0 +1,260 @@
+:root {
+  --bg: #0b0d12;
+  --bg-soft: #12151d;
+  --bg-card: #171b25;
+  --border: #242a38;
+  --text: #e6e9f0;
+  --muted: #8b93a7;
+  --accent: #4f8cff;
+  --accent-soft: #1e3358;
+  --ok: #3ecf8e;
+  --warn: #f0b429;
+  --err: #ef5f5f;
+  --radius: 10px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+img.logo, img.auth-logo { width: 24px; height: 24px; }
+img.auth-logo { width: 40px; height: 40px; margin-bottom: 8px; }
+
+.muted { color: var(--muted); }
+.error { color: var(--err); }
+code { font-family: var(--mono); font-size: 0.9em; background: var(--bg-card); padding: 1px 4px; border-radius: 4px; }
+
+/* ---------------------------------------------------------------- buttons */
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  transition: background .15s, border-color .15s, opacity .15s;
+}
+button.primary { background: var(--accent); color: #fff; font-weight: 600; }
+button.primary:hover { background: #3f7aeb; }
+button.ghost { background: transparent; color: var(--muted); border-color: var(--border); }
+button.ghost:hover { color: var(--text); border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ------------------------------------------------------------------ auth */
+.auth {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 0%, #16203a 0%, var(--bg) 60%);
+  padding: 24px;
+}
+.auth[hidden] { display: none; }
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+.auth-card h1 { font-size: 20px; margin: 0; }
+.auth-card input {
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+}
+.auth-card input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ----------------------------------------------------------------- layout */
+.app { display: grid; grid-template-columns: 260px 1fr; height: 100%; }
+.app[hidden] { display: none; }
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: var(--bg-soft);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+.sidebar-head { display: flex; align-items: center; gap: 8px; }
+.brand { font-weight: 700; letter-spacing: .3px; flex: 1; }
+.sessions { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; flex: 1; }
+.session-item {
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.session-item:hover { background: var(--bg-card); color: var(--text); }
+.session-item.active { background: var(--accent-soft); border-color: var(--accent); color: var(--text); }
+.sidebar-foot { display: flex; gap: 6px; }
+.sidebar-foot button { flex: 1; font-size: 13px; }
+.model-badge { margin: 0; font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+.main { display: flex; flex-direction: column; min-width: 0; }
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.topbar h2 { font-size: 15px; margin: 0; flex: 1; font-weight: 600; }
+.badge {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* --------------------------------------------------------------- messages */
+.messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.msg { max-width: 860px; width: 100%; margin: 0 auto; }
+.msg-user {
+  align-self: flex-end;
+  background: var(--accent-soft);
+  border: 1px solid #2a4a86;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  white-space: pre-wrap;
+  max-width: min(720px, 80%);
+  margin-right: 0;
+}
+.msg-assistant { display: flex; flex-direction: column; gap: 8px; }
+.msg-text { white-space: pre-wrap; word-wrap: break-word; }
+.msg-text pre {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.msg-text table { border-collapse: collapse; margin: 8px 0; font-size: 14px; }
+.msg-text th, .msg-text td { border: 1px solid var(--border); padding: 5px 9px; text-align: left; }
+.msg-text th { background: var(--bg-card); }
+.msg-text a { color: var(--accent); }
+
+.tool {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg-card);
+  font-size: 13px;
+}
+.tool.is-error { border-left-color: var(--err); }
+.tool summary {
+  cursor: pointer;
+  padding: 7px 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  list-style: none;
+}
+.tool summary::-webkit-details-marker { display: none; }
+.tool-name { font-family: var(--mono); color: var(--accent); font-weight: 600; }
+.tool-args { font-family: var(--mono); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tool pre {
+  margin: 0;
+  padding: 0 10px 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--mono);
+  color: var(--muted);
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.notices p { margin: 4px 0 0; font-size: 13px; }
+
+.reasoning {
+  border-left: 2px dashed var(--border);
+  padding-left: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  white-space: pre-wrap;
+}
+
+/* --------------------------------------------------------------- composer */
+.composer {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 12px 20px 0;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+.composer textarea {
+  flex: 1;
+  resize: none;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  max-height: 220px;
+  min-height: 42px;
+}
+.composer textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hint { text-align: center; font-size: 11px; margin: 6px 0 12px; }
+
+/* --------------------------------------------------------------- dialogs */
+.dialog {
+  background: var(--bg-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0;
+  max-width: 620px;
+  width: calc(100% - 32px);
+}
+.dialog::backdrop { background: rgba(0, 0, 0, .6); }
+.dialog-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.dialog h3 { margin: 0; font-size: 15px; }
+.memory-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 50vh; overflow-y: auto; }
+.memory-list li { border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+.memory-list .memory-name { font-family: var(--mono); color: var(--accent); }
+.config-json { font-family: var(--mono); font-size: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; overflow-x: auto; }
+
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+
+.approval { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; border-top: 1px solid var(--border); }
+.approval b { width: 100%; font-weight: 600; }
+.approval button { border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.approval button.primary { background: var(--accent, #4d6bfe); border-color: transparent; color: #fff; }
+.approval button.danger { color: #e5484d; }

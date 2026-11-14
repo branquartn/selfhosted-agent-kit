@@ -1,0 +1,44 @@
+[Unit]
+Description=SelfHosted Agent Kit (self-hosted AI agent)
+Documentation=file://__ROOT__/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__USER__
+Group=__USER__
+WorkingDirectory=__ROOT__
+EnvironmentFile=__ROOT__/.env
+Environment=PYTHONPATH=__ROOT__/src
+Environment=AGENT_ENV_FILE=__ROOT__/.env
+ExecStart=/usr/bin/python3 -m agent.server
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+
+# --- hardening ------------------------------------------------------------
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+# read-only (not `yes`): the agent is often installed under /home, which
+# `ProtectHome=yes` would hide from ReadWritePaths and break the unit.
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+# Only the state and the agent workspace are writable.
+ReadWritePaths=__ROOT__/var __ROOT__/workspace
+
+[Install]
+WantedBy=multi-user.target

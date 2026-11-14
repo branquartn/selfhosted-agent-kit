@@ -1,0 +1,29 @@
+services:
+  agent:
+    build: .
+    image: selfhosted-agent-kit:1.1.0
+    container_name: selfhosted-agent
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      AGENT_HOST: 0.0.0.0
+      AGENT_PORT: "8800"
+      AGENT_DATA_DIR: /data
+      AGENT_WORKSPACE: /workspace
+    ports:
+      # Bind to loopback only: put Caddy/nginx in front for TLS.
+      - "127.0.0.1:8800:8800"
+    volumes:
+      - agent-data:/data
+      # Mount the directory the agent is allowed to touch. Never "/".
+      - ./workspace:/workspace
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 512m
+    tmpfs:
+      - /tmp:size=64m
+
+volumes:
+  agent-data:

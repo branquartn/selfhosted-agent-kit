@@ -1,0 +1,12 @@
+# Everything runtime-generated stays out of git.
+.env
+var/
+workspace/
+*.pyc
+__pycache__/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
